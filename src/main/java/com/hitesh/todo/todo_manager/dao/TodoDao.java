@@ -86,4 +86,11 @@ public class TodoDao {
         newTodo.setId(id);
         return newTodo;
     }
+
+    //delete todo
+    public void deleteTodo(int id){
+        String sql = "DELETE FROM todos WHERE id=?";
+        int updateRows = jdbcTemplate.update(sql, id);
+        logger.info("delete rows " + updateRows);
+    }
 }
