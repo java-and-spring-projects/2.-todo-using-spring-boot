@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/file")
 public class FileController {
@@ -21,5 +23,17 @@ public class FileController {
         logger.info("Original File name: {}", file.getOriginalFilename());
 
         return "File uploaded successfully";
+    }
+
+    @PostMapping("/multiple")
+    public String uploadMultipleFiles(@RequestParam("images") MultipartFile[] files) {
+        for (MultipartFile file : files) {
+            logger.info("Name {}", file.getName());
+            logger.info("Size {}", file.getSize());
+            logger.info("Content Type: {}", file.getContentType());
+            logger.info("Original File name: {}", file.getOriginalFilename());
+        }
+
+        return "Files uploaded successfully";
     }
 }
