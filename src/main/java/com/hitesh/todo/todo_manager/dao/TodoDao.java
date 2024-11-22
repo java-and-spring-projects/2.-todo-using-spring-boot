@@ -77,7 +77,17 @@ public class TodoDao {
     //get all todos
     public List<Todo> getAllTodos() {
         String sql = "SELECT * FROM todos";
-        List<Todo> todos = jdbcTemplate.query(sql, new TodoRowMapper());
+        List<Todo> todos = jdbcTemplate.query(sql, (rs, rowNum)->{
+            Todo todo = new Todo();
+            todo.setId((int) rs.getInt("id"));
+            todo.setTitle((String) rs.getString("title"));
+            todo.setContent((String) rs.getString("content"));
+            todo.setStatus((String) rs.getString("status"));
+            todo.setAddedDate((java.sql.Date) rs.getObject("addedDate"));
+            todo.setTodoDate((java.sql.Date) rs.getObject("todoDate"));
+
+            return todo;
+        });
 
 //        List<Map<String, Object>> maps = jdbcTemplate.queryForList(sql);
 //
