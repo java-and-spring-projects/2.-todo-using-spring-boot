@@ -32,4 +32,14 @@ public class TodoService {
         }
         return null;
     }
+
+    public Todo updateTodo(Todo newTodo, int todoId) {
+        Todo todo = getTodoById(todoId);
+        if (todo!=null) {
+            todo.setTitle(newTodo.getTitle());
+            todo.setContent(newTodo.getContent());
+            todo.setStatus(newTodo.getStatus());
+        }
+        return todo;
+    }
 }
