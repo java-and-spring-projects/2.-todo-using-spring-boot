@@ -24,26 +24,26 @@ public class TodoManagerApplication implements CommandLineRunner {
 	}
 
 	public void run(String... args) throws Exception {
-//		Todo todo = new Todo();
-//		todo.setId(12);
-//		todo.setTitle("First Todo");
-//		todo.setContent("This is my first todo");
-//		todo.setStatus("pending");
-//		todo.setAddedDate(new Date());
-//		todo.setTodoDate(new Date());
-//
-//		logger.info("saved");
-//		todoDao.saveTodo(todo);
+		Todo todo = new Todo();
+		todo.setId(12);
+		todo.setTitle("First Todo");
+		todo.setContent("This is my first todo");
+		todo.setStatus("pending");
+		todo.setAddedDate(new Date());
+		todo.setTodoDate(new Date());
+
+		logger.info("saved");
+		todoDao.saveTodo(todo);
 
 
 		//get todo
-//		Todo todo = todoDao.getTodoById(12);
+//		Todo todo = todoDao.getTodoById(1);
 //		logger.info("get todo data {}", todo);
 
 
 		//get all todos
-//		Iterable<Todo> todoList = todoDao.getAllTodos();
-//        logger.info("get todo list {}", todoList);
+		Iterable<Todo> todoList = todoDao.getAllTodos();
+        logger.info("get todo list {}", todoList);
 
 
 		//update todo
@@ -56,9 +56,7 @@ public class TodoManagerApplication implements CommandLineRunner {
 //		todoDao.updateTodo(12,todoById);
 
 		//delete todo
-		todoDao.deleteTodo(12);
+//		todoDao.deleteTodo(12);
 
 	}
-
-
 }

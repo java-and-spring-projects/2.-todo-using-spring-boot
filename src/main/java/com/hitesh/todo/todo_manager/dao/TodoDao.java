@@ -42,16 +42,16 @@ public class TodoDao {
     //get single todo
     public Todo getTodoById(int id) {
         String sql = "SELECT * FROM todos WHERE id=?";
-        Map<String, Object> todoData = jdbcTemplate.queryForMap(sql, id);
+        Todo todo = jdbcTemplate.queryForObject(sql, new TodoRowMapper(), id); //RowMapper map table row to java object
 
 
-        Todo todo = new Todo();
-        todo.setId((int) todoData.get("id"));
-        todo.setTitle((String) todoData.get("title"));
-        todo.setContent((String) todoData.get("content"));
-        todo.setStatus((String) todoData.get("status"));
-        todo.setAddedDate((java.sql.Date) todoData.get("addedDate"));
-        todo.setTodoDate((java.sql.Date) todoData.get("todoDate"));
+//        Todo todo = new Todo();
+//        todo.setId((int) todoData.get("id"));
+//        todo.setTitle((String) todoData.get("title"));
+//        todo.setContent((String) todoData.get("content"));
+//        todo.setStatus((String) todoData.get("status"));
+//        todo.setAddedDate((java.sql.Date) todoData.get("addedDate"));
+//        todo.setTodoDate((java.sql.Date) todoData.get("todoDate"));
 
         return todo;
 
@@ -60,19 +60,21 @@ public class TodoDao {
     //get all todos
     public List<Todo> getAllTodos() {
         String sql = "SELECT * FROM todos";
-        List<Map<String, Object>> maps = jdbcTemplate.queryForList(sql);
+        List<Todo> todos = jdbcTemplate.query(sql, new TodoRowMapper());
 
-        List<Todo> todos= maps.stream().map((todoData)-> {
-            Todo todo = new Todo();
-            todo.setId((int) todoData.get("id"));
-            todo.setTitle((String) todoData.get("title"));
-            todo.setContent((String) todoData.get("content"));
-            todo.setStatus((String) todoData.get("status"));
-            todo.setAddedDate((java.sql.Date) todoData.get("addedDate"));
-            todo.setTodoDate((java.sql.Date) todoData.get("todoDate"));
-
-            return todo;
-        }).collect(Collectors.toList());
+//        List<Map<String, Object>> maps = jdbcTemplate.queryForList(sql);
+//
+//        List<Todo> todos= maps.stream().map((todoData)-> {
+//            Todo todo = new Todo();
+//            todo.setId((int) todoData.get("id"));
+//            todo.setTitle((String) todoData.get("title"));
+//            todo.setContent((String) todoData.get("content"));
+//            todo.setStatus((String) todoData.get("status"));
+//            todo.setAddedDate((java.sql.Date) todoData.get("addedDate"));
+//            todo.setTodoDate((java.sql.Date) todoData.get("todoDate"));
+//
+//            return todo;
+//        }).collect(Collectors.toList());
 
         return todos;
     }
