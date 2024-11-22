@@ -19,4 +19,17 @@ public class TodoService {
         todos.add(todo);
         return todo;
     }
+
+    public List<Todo> getAllTodos() {
+        return todos;
+    }
+
+    public Todo getTodoById(int todoId) {
+        for (Todo todo : todos) {
+            if (todo.getId() == todoId) {
+                return todo;
+            }
+        }
+        return null;
+    }
 }

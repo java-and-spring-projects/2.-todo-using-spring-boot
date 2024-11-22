@@ -7,10 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/todos")
@@ -26,5 +25,22 @@ public class TodoController {
         logger.info("Received todo: {}", todo);
         Todo todo1 = todoService.createTodo(todo);
         return new ResponseEntity<>(todo1, HttpStatus.CREATED);
+    }
+
+    //get all todos
+    @GetMapping
+    public ResponseEntity<List<Todo>> getAllTodos() {
+        List<Todo> todos = todoService.getAllTodos();
+        return new ResponseEntity<>(todos, HttpStatus.OK);
+    }
+
+    //get single todo
+    @GetMapping("/{todoId}")
+    public ResponseEntity<Todo> getTodoById(@PathVariable int todoId) {
+        Todo todo = todoService.getTodoById(todoId);
+        if (todo == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(todo);
     }
 }
