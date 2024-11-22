@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
 @Component
 public class TodoDao {
-    Logger logger= LoggerFactory.getLogger(TodoDao.class);
+    Logger logger = LoggerFactory.getLogger(TodoDao.class);
 
     private JdbcTemplate jdbcTemplate;
 
@@ -17,7 +19,7 @@ public class TodoDao {
         this.jdbcTemplate = jdbcTemplate;
 
         //create table if not exists
-        String sql="CREATE TABLE IF NOT EXISTS todos (" +
+        String sql = "CREATE TABLE IF NOT EXISTS todos (" +
                 "id INT AUTO_INCREMENT PRIMARY KEY," +
                 "title VARCHAR(255)," +
                 "content TEXT," +
@@ -29,10 +31,28 @@ public class TodoDao {
     }
 
     //save todo in database
-    public Todo saveTodo(Todo todo){
-        String sql="INSERT INTO todos (id,title,content,status,addedDate,todoDate) VALUES (?,?,?,?,?,?)";
+    public Todo saveTodo(Todo todo) {
+        String sql = "INSERT INTO todos (id,title,content,status,addedDate,todoDate) VALUES (?,?,?,?,?,?)";
         int updateRows = jdbcTemplate.update(sql, todo.getId(), todo.getTitle(), todo.getContent(), todo.getStatus(), todo.getAddedDate(), todo.getTodoDate());
-        logger.info("update rows "+updateRows);
+        logger.info("update rows " + updateRows);
         return todo;
+    }
+
+    //get single todo
+    public Todo getTodoById(int id) {
+        String sql = "SELECT * FROM todos WHERE id=?";
+        Map<String, Object> todoData = jdbcTemplate.queryForMap(sql, id);
+
+
+        Todo todo = new Todo();
+        todo.setId((int) todoData.get("id"));
+        todo.setTitle((String) todoData.get("title"));
+        todo.setContent((String) todoData.get("content"));
+        todo.setStatus((String) todoData.get("status"));
+        todo.setAddedDate((java.sql.Date) todoData.get("addedDate"));
+        todo.setTodoDate((java.sql.Date) todoData.get("todoDate"));
+
+        return todo;
+
     }
 }
