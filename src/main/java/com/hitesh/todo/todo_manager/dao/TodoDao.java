@@ -36,7 +36,6 @@ public class TodoDao {
     public Todo saveTodo(Todo todo) {
         String sql = "INSERT INTO todos (id,title,content,status,addedDate,todoDate) VALUES (?,?,?,?,?,?)";
         int updateRows = jdbcTemplate.update(sql, todo.getId(), todo.getTitle(), todo.getContent(), todo.getStatus(), todo.getAddedDate(), todo.getTodoDate());
-        logger.info("update rows " + updateRows);
         return todo;
     }
 
@@ -76,5 +75,15 @@ public class TodoDao {
         }).collect(Collectors.toList());
 
         return todos;
+    }
+
+    //update todo
+    public Todo updateTodo(int id, Todo newTodo){
+        String sql = "UPDATE todos SET title=?, content=?, status=?, todoDate=? WHERE id=?";
+        int updateRows = jdbcTemplate.update(sql, newTodo.getTitle(), newTodo.getContent(), newTodo.getStatus(), newTodo.getTodoDate(), id);
+        logger.info("update rows " + updateRows);
+
+        newTodo.setId(id);
+        return newTodo;
     }
 }

@@ -42,8 +42,18 @@ public class TodoManagerApplication implements CommandLineRunner {
 
 
 		//get all todos
-		Iterable<Todo> todoList = todoDao.getAllTodos();
-        logger.info("get todo list {}", todoList);
+//		Iterable<Todo> todoList = todoDao.getAllTodos();
+//        logger.info("get todo list {}", todoList);
+
+
+		//update todo
+		Todo todoById = todoDao.getTodoById(12);
+		todoById.setTitle("Updated Title");
+		todoById.setContent("Updated");
+		todoById.setStatus("pending");
+		todoById.setTodoDate(new Date());
+		todoById.setAddedDate(new Date());
+		todoDao.updateTodo(12,todoById);
 
 	}
 
