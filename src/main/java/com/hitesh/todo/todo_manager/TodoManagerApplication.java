@@ -37,8 +37,14 @@ public class TodoManagerApplication implements CommandLineRunner {
 
 
 		//get todo
-		Todo todo = todoDao.getTodoById(12);
-		logger.info("get todo data {}", todo);
+//		Todo todo = todoDao.getTodoById(12);
+//		logger.info("get todo data {}", todo);
+
+
+		//get all todos
+		Iterable<Todo> todoList = todoDao.getAllTodos();
+        logger.info("get todo list {}", todoList);
+
 	}
 
 

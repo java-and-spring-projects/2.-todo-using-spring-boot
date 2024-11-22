@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Component
 public class TodoDao {
@@ -54,5 +56,25 @@ public class TodoDao {
 
         return todo;
 
+    }
+
+    //get all todos
+    public List<Todo> getAllTodos() {
+        String sql = "SELECT * FROM todos";
+        List<Map<String, Object>> maps = jdbcTemplate.queryForList(sql);
+
+        List<Todo> todos= maps.stream().map((todoData)-> {
+            Todo todo = new Todo();
+            todo.setId((int) todoData.get("id"));
+            todo.setTitle((String) todoData.get("title"));
+            todo.setContent((String) todoData.get("content"));
+            todo.setStatus((String) todoData.get("status"));
+            todo.setAddedDate((java.sql.Date) todoData.get("addedDate"));
+            todo.setTodoDate((java.sql.Date) todoData.get("todoDate"));
+
+            return todo;
+        }).collect(Collectors.toList());
+
+        return todos;
     }
 }
