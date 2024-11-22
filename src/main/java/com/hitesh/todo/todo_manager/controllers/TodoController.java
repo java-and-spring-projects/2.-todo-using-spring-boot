@@ -48,9 +48,9 @@ public class TodoController {
     @GetMapping("/{todoId}")
     public ResponseEntity<Todo> getTodoById(@PathVariable int todoId) {
         Todo todo = todoService.getTodoById(todoId);
+
+        System.out.println("todo by id: " + todo);
         if (todo == null) {
-            todo.getId();     //produce NullPointerException
-            Integer.parseInt("abc"); //produce NullPointerException
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(todo);
@@ -79,10 +79,10 @@ public class TodoController {
 //    }
 
     //handle exceptions
-    @ExceptionHandler(value = {NullPointerException.class, NumberFormatException.class})
-    public ResponseEntity<String> handleException(Exception e) {
-        logger.error("An exception occurred: {}", e.getMessage());
-        return new ResponseEntity<>("An exception occurred", HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+//    @ExceptionHandler(value = {NullPointerException.class, NumberFormatException.class})
+//    public ResponseEntity<String> handleException(Exception e) {
+//        logger.error("An exception occurred: {}", e.getMessage());
+//        return new ResponseEntity<>("An exception occurred", HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
 
 }

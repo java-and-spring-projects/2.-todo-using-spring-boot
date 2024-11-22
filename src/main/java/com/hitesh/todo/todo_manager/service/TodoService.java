@@ -1,6 +1,8 @@
 package com.hitesh.todo.todo_manager.service;
 
+import com.hitesh.todo.todo_manager.exceptions.ResourceNotFoundException;
 import com.hitesh.todo.todo_manager.model.Todo;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,12 +29,11 @@ public class TodoService {
     }
 
     public Todo getTodoById(int todoId) {
-        for (Todo todo : todos) {
-            if (todo.getId() == todoId) {
-                return todo;
-            }
-        }
-        return null;
+        Todo todo= todos.stream()
+                .filter(t-> todoId==t.getId())
+                .findAny()
+                .orElseThrow(()->new ResourceNotFoundException("todo not found for given id", HttpStatus.NOT_FOUND));
+        return todo;
     }
 
     public Todo updateTodo(Todo newTodo, int todoId) {
