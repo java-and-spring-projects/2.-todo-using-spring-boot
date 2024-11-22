@@ -9,7 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 @RestController
 @RequestMapping("/todos")
@@ -20,9 +22,12 @@ public class TodoController {
     @Autowired
     private TodoService todoService;
 
+    Random random = new Random();
     //create todo
     @PostMapping
     public ResponseEntity<Todo> createTodo(@RequestBody Todo todo) {
+        todo.setId(random.nextInt());
+        todo.setAddedDate(new Date());
         logger.info("Received todo: {}", todo);
         Todo todo1 = todoService.createTodo(todo);
         return new ResponseEntity<>(todo1, HttpStatus.CREATED);

@@ -19,8 +19,6 @@ public class TodoServiceImpl implements TodoService {
 
     public Todo createTodo(Todo todo) {
         int id=random.nextInt(1000000);
-        todo.setId(id);
-        todo.setAddedDate(new Date());
         todos.add(todo);
         return todo;
     }
