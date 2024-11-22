@@ -4,6 +4,7 @@ import com.hitesh.todo.todo_manager.model.Todo;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -16,6 +17,7 @@ public class TodoService {
     public Todo createTodo(Todo todo) {
         int id=random.nextInt(1000000);
         todo.setId(id);
+        todo.setAddedDate(new Date());
         todos.add(todo);
         return todo;
     }

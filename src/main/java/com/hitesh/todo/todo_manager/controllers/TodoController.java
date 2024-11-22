@@ -20,12 +20,22 @@ public class TodoController {
     @Autowired
     private TodoService todoService;
 
+    //create todo
     @PostMapping
     public ResponseEntity<Todo> createTodo(@RequestBody Todo todo) {
         logger.info("Received todo: {}", todo);
         Todo todo1 = todoService.createTodo(todo);
         return new ResponseEntity<>(todo1, HttpStatus.CREATED);
     }
+    /*
+    {
+        title":"read",
+        content":"read book",
+        status":"completed",
+        todoDate":"23/12/2025"
+    }
+    * */
+
 
     //get all todos
     @GetMapping
