@@ -42,4 +42,11 @@ public class TodoService {
         }
         return todo;
     }
+
+    public void deleteTodo(int todoId) {
+        Todo todo = getTodoById(todoId);
+        if (todo!=null) {
+            todos.remove(todo);
+        }
+    }
 }
