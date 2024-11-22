@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Random;
 
 @Service
-@Primary
+//@Primary
 public class DaoTodoServiceImpl implements TodoService {
 
     @Autowired

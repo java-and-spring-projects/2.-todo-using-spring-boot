@@ -26,7 +26,6 @@ public class TodoController {
     //create todo
     @PostMapping
     public ResponseEntity<Todo> createTodo(@RequestBody Todo todo) {
-        todo.setId(random.nextInt());
         todo.setAddedDate(new Date());
         logger.info("Received todo: {}", todo);
         Todo todo1 = todoService.createTodo(todo);
